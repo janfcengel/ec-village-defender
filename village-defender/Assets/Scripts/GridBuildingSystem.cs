@@ -250,6 +250,15 @@ public class GridBuildingSystem : MonoBehaviour
         foreach (Transform obj in transformChildren)
         {
             var buildingObj = obj.GetComponent<Building>();
+            if (buildingObj.rotated)
+            {
+                //obj.Rotate(0, 90, 0);
+                // Es muss quasi nciht das GameObject selbst gedreht werden sondern die area 
+                var x = buildingObj.area.size.x;
+                var y = buildingObj.area.size.y;
+                buildingObj.area.size = new Vector3Int(y, x, buildingObj.area.size.z);
+                
+            }
             buildingObj.area.position = gridLayout.LocalToCell(new Vector3Int(
                 System.Convert.ToInt32(obj.position.x),
                 System.Convert.ToInt32(obj.position.y),
