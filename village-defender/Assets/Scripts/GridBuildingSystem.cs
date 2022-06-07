@@ -38,7 +38,7 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Green, tile_green);
         tileBases.Add(TileType.Red, tile_red);
 
-        //GetVillageObjects();
+        GetVillageObjects();
     }
 
     // Update is called once per frame
@@ -205,6 +205,7 @@ public class GridBuildingSystem : MonoBehaviour
         if (!temp.rotated)
         {
             temp.transform.Rotate(0, 90, 0);
+            moveChildFromHolder();
             temp.rotated = !temp.rotated;
         }
         else
@@ -215,7 +216,12 @@ public class GridBuildingSystem : MonoBehaviour
         temp.area.size = new Vector3Int(temp.area.size.y, temp.area.size.x, 1);
         FollowBuilding();
     }
-
+    private void moveChildFromHolder()
+    {
+        //Hole Children von Holder und verschiebe den x punkt um die  + länge Vec(x->z)
+        //Beim -90 natürlich das ganze mit minus
+        //temp.get
+    }
     public void GetVillageObjects()
     {
         int children = villageObjects.transform.childCount;
