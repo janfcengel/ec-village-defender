@@ -9,6 +9,7 @@ public class CanvasController : MonoBehaviour
     public Button BuildingModeButton;
     public GameObject[] BuidingButton;
     public GameObject[] Cameras;
+    public GameObject buildingGrid;
 
     #region Unity Methods
     
@@ -41,6 +42,7 @@ public class CanvasController : MonoBehaviour
         {
             BuildingModeButton.GetComponentInChildren<Text>().text = "Build Mode";
         }
+        //buildingGrid.SetActive(buildingMode);
     }
     void SetBuildingCamActive(bool enabled)
     {

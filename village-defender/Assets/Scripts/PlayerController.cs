@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     float speed = 0.1f;
+    public GameObject inventory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,10 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = new Vector3(xDirection, 0f, zDirection);
 
         transform.position += moveDirection * speed;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
+        }
     }
 }
