@@ -204,20 +204,36 @@ public class GridBuildingSystem : MonoBehaviour
     {
         if (!temp.rotated)
         {
+            
             temp.transform.Rotate(0, 90, 0);
-            moveChildFromHolder();
+            moveChildFromHolder(true);
             temp.rotated = !temp.rotated;
         }
         else
         {
+            moveChildFromHolder(false);
             temp.transform.Rotate(0, -90, 0);
+            
             temp.rotated = !temp.rotated;
         }
         temp.area.size = new Vector3Int(temp.area.size.y, temp.area.size.x, 1);
         FollowBuilding();
     }
-    private void moveChildFromHolder()
+    private void moveChildFromHolder(bool isAdd)
     {
+        float size_x = temp.area.size.x;
+        float size_y = temp.area.size.y;
+        Transform child = temp.transform.GetChild(0);
+
+        if(isAdd)
+        {
+           child.transform.position += new Vector3(0, 0, size_x);
+        }
+        else
+        {
+           child.transform.position -= new Vector3(0, 0, size_y);
+        }
+
         //Hole Children von Holder und verschiebe den x punkt um die  + länge Vec(x->z)
         //Beim -90 natürlich das ganze mit minus
         //temp.get
