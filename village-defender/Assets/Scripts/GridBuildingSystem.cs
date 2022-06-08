@@ -89,8 +89,15 @@ public class GridBuildingSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (temp.placed)
+            {
+                return;
+            }
+            else
+            { 
             ClearArea();
             Destroy(temp.gameObject);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
@@ -202,6 +209,10 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void Rotate()
     {
+        if(temp.placed)
+        {
+            return; 
+        }
         if (!temp.rotated)
         {
             

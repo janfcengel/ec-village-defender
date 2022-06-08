@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    float speed = 0.1f;
-    public GameObject inventory;
+    private float speed = 0.1f;
+    //public GameObject inventory;
+    [SerializeField]
+    HealthBarSystem healthBar; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthBar.SetSize(.5f);
     }
 
     // Update is called once per frame
@@ -28,5 +30,14 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            healthBar.AddHealth(10);
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            healthBar.ReduceHealth(10);
+        }
+
     }
 }

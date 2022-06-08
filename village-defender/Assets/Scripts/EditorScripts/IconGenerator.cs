@@ -12,7 +12,7 @@ public class IconGenerator : MonoBehaviour
 
     private void Awake()
     {
-        Screenshot();
+       // Screenshot();
     }
     public void Screenshot()
     {
