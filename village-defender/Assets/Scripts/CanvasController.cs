@@ -9,6 +9,7 @@ public class CanvasController : MonoBehaviour
     public Button BuildingModeButton;
     public GameObject[] BuidingButton;
     public GameObject[] Cameras;
+    public GameObject BuildingInfoText;
     public GameObject buildingGrid;
 
     #region Unity Methods
@@ -33,7 +34,8 @@ public class CanvasController : MonoBehaviour
         {
             button.SetActive(buildingMode);
         }
-        SetBuildingCamActive(buildingMode);
+        //Bugs: MousePos wird nicht richtig in CellPos übersetzt in GridBuildingSystem 
+        //SetBuildingCamActive(buildingMode);
         if (buildingMode)
         {
             BuildingModeButton.GetComponentInChildren<Text>().text = "Player Mode";
@@ -43,6 +45,7 @@ public class CanvasController : MonoBehaviour
             BuildingModeButton.GetComponentInChildren<Text>().text = "Build Mode";
         }
         //buildingGrid.SetActive(buildingMode);
+        BuildingInfoText.SetActive(buildingMode);
     }
     void SetBuildingCamActive(bool enabled)
     {
