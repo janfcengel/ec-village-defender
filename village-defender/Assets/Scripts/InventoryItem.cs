@@ -11,8 +11,8 @@ public class InventoryItem
 
     public InventoryItem(InventoryItemData data)
     {
-        this.data = data; 
-        
+        this.data = data;
+        AddToStack();
     }
 
     public void AddToStack()
