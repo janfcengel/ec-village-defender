@@ -35,4 +35,9 @@ public class TimeController : MonoBehaviour
             timeText.text = currentTime.ToString("HH:mm");
         }
     }
+
+    public void SetTime(int startHour)
+    {
+        currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
+    }
 }

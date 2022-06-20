@@ -40,5 +40,10 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    
+
+    public HealthBarSystem getHealthBar()
+    {
+        return healthBar; 
+    }
+
 }

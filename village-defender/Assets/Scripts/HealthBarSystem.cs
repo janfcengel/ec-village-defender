@@ -15,7 +15,6 @@ public class HealthBarSystem : MonoBehaviour
     {
         bar = transform.Find("Bar");
         currentHealth = maxHealth;
-        Debug.Log("curr: " + currentHealth);
         if(maxHealth == 0)
         {
             maxHealth = 1; // Geteilt durch 0 vermeiden 
@@ -27,6 +26,10 @@ public class HealthBarSystem : MonoBehaviour
     {
         float fPercentHealth = Convert.ToSingle(currentHealth) / Convert.ToSingle(maxHealth);
         //float fPercentHealth = Convert.ToSingle(percentHealth);
+        if(fPercentHealth == null)
+        {
+            fPercentHealth = maxHealth;
+        }
         SetSize(fPercentHealth);
     }
 
@@ -51,5 +54,19 @@ public class HealthBarSystem : MonoBehaviour
         {
             currentHealth = maxHealth; 
         }
+    }
+
+    public void SetHealth(int setTo)
+    {
+        currentHealth = setTo;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth; 
     }
 }
