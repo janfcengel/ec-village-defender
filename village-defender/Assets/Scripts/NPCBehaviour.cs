@@ -21,4 +21,14 @@ public class NPCBehaviour : MonoBehaviour
     {
         activeDialogue.TriggerDialogue();
     }
+
+    public virtual void ActivateActionButton()
+    {
+
+    }
+
+    public virtual void DeactivateActionButton()
+    {
+
+    }
 }

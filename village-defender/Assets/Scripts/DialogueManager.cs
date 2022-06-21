@@ -49,7 +49,12 @@ public class DialogueManager : MonoBehaviour
         if(sentences.Count == 0)
         {
             EndDialogue();
+            activeNPC.DeactivateActionButton();
             return; 
+        }
+        if (sentences.Count == 1)
+        {
+            activeNPC.ActivateActionButton();
         }
         string sentence = sentences.Dequeue();
 

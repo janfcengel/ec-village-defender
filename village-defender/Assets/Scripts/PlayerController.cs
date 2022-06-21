@@ -8,14 +8,17 @@ public class PlayerController : MonoBehaviour
     private float speed = 0.1f;
     //public GameObject inventory;
     [SerializeField]
-    HealthBarSystem healthBar; 
+    HealthBarSystem healthBar;
 
+    public Quest currentQuest; 
     // Start is called before the first frame update
     void Start()
     {
         healthBar.SetSize(.5f);
     }
 
+
+    private bool questUIVisible;
     // Update is called once per frame
     void Update()
     {
@@ -29,6 +32,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
 
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            QuestUIManager.instance.ToggleVisible(!questUIVisible);
+            questUIVisible = !questUIVisible;
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
@@ -44,6 +52,12 @@ public class PlayerController : MonoBehaviour
     public HealthBarSystem getHealthBar()
     {
         return healthBar; 
+    }
+
+    public void SetQuest(Quest quest)
+    {
+        currentQuest = quest;
+        QuestUIManager.instance.SetQuestTexts(quest);
     }
 
 }
