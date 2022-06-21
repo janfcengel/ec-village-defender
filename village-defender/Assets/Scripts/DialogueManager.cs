@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public Text dialogueName;
-    public Text dialgoueText;
+    public Text dialogueText;
+    public GameObject dialogueContinueButton;
+    public GameObject dialogueBox;
     private Queue<string> sentences;
 
-    public static DialogueManager instance; 
+    public static DialogueManager instance;
+
+    private NPCBehaviour activeNPC;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        SetDialogueUIElementsActive(true);
         dialogueName.text = dialogue.name;
         sentences.Clear();
 
@@ -34,6 +39,11 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    public void StartDialogueFromActiveNPC(Dialogue dialogue)
+    {
+        activeNPC.StartDialogueTrigger();
+    }
+
     public void DisplayNextSentence()
     {
         if(sentences.Count == 0)
@@ -43,11 +53,25 @@ public class DialogueManager : MonoBehaviour
         }
         string sentence = sentences.Dequeue();
 
-        dialgoueText.text = sentence; 
+        dialogueText.text = sentence; 
     }
 
     public void EndDialogue()
     {
         Debug.Log("End Dialogue");
+        SetDialogueUIElementsActive(false);
+    }
+
+    public void SetActiveNPC(NPCBehaviour npcBehaviour)
+    {
+        activeNPC = npcBehaviour; 
+    }
+
+    private void SetDialogueUIElementsActive(bool isActive)
+    {
+        dialogueBox.SetActive(isActive);
+        dialogueContinueButton.SetActive(isActive);
+        dialogueText.gameObject.SetActive(isActive);
+        dialogueName.gameObject.SetActive(isActive);
     }
 }
