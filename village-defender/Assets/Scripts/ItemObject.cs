@@ -11,6 +11,11 @@ public class ItemObject : MonoBehaviour
     public void OnHandlePickupItem()
     {
         InventorySystem.instance.Add(referenceData);
+        if (QuestObserver.instance.GetQuest() != null && referenceData.displayName == "Wood")
+        {
+            QuestObserver.instance.GetQuest().questGoals[1].isDone = true;
+            QuestUIManager.instance.SetQuestTexts(QuestObserver.instance.GetQuest());
+        }
         Destroy(gameObject);
     }
 

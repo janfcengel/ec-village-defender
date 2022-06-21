@@ -17,6 +17,8 @@ public class BlacksmithController : NPCBehaviour
 
     private Quest currentQuest;
 
+    public DialogueTrigger activeDialogue;
+
     void Start()
     {
         
@@ -35,7 +37,16 @@ public class BlacksmithController : NPCBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(QuestObserver.instance.GetQuest() == null) { return; }
+        if (QuestObserver.instance.GetQuest() != null)
+        {
+            activeDialogue = (DialogueTrigger)dialogues.ToArray().GetValue(2);
+            
+        }
+        if(QuestObserver.instance.GetQuest().isQuestComplete())
+        {
+            activeDialogue = (DialogueTrigger)dialogues.ToArray().GetValue(1);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,6 +66,11 @@ public class BlacksmithController : NPCBehaviour
         }
     }
 
+    public override void StartDialogueTrigger()
+    {
+        activeDialogue.TriggerDialogue();
+    }
+
     public override void ActivateActionButton()
     {
         Debug.Log("testactviate");
@@ -64,6 +80,18 @@ public class BlacksmithController : NPCBehaviour
             Text actionButtontext = actionButton.gameObject.GetComponentInChildren<Text>();
             actionButtontext.text = "Accept Quest";
         }
+        if (activeDialogue == (DialogueTrigger)dialogues.ToArray().GetValue(2)) 
+        {
+            if (QuestObserver.instance.GetQuest().questGoals[0].isDone == true &&
+               QuestObserver.instance.GetQuest().questGoals[1].isDone == true &&
+               QuestObserver.instance.GetQuest().isQuestComplete() == false)
+            {
+                actionButton.gameObject.SetActive(true);
+                Text actionButtontext = actionButton.gameObject.GetComponentInChildren<Text>();
+                actionButtontext.text = "Give Wood";
+                
+            }
+        }
     }
 
     public void OnActionButton()
@@ -72,13 +100,25 @@ public class BlacksmithController : NPCBehaviour
         {
             OnQuestAccept();
         }
+        if(activeDialogue == (DialogueTrigger)dialogues.ToArray().GetValue(2))
+        {
+            OnGiveWood();
+        }
     }
 
+    public void OnGiveWood()
+    {
+        QuestObserver.instance.GetQuest().questGoals[2].isDone = true;
+        QuestObserver.instance.GetQuest().SetQuestComplete(true);
+        QuestUIManager.instance.SetQuestTexts(QuestObserver.instance.GetQuest());
+        DeactivateActionButton();
+    }
     public void OnQuestAccept()
     {
         currentQuest = (Quest) availableQuest.ToArray().GetValue(0);
         PlayerController pc = Player.gameObject.GetComponent<PlayerController>();
-        pc.SetQuest(currentQuest); 
+        pc.SetQuest(currentQuest);
+        DeactivateActionButton();
     }
 
     public override void DeactivateActionButton()

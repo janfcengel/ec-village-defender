@@ -34,5 +34,11 @@ public class RegionObserver : MonoBehaviour
     {
         Debug.Log("Region set to " + region.ToString());
         currentRegion = region;
+        if(QuestObserver.instance.GetQuest() != null && region == RegionType.Forest)
+        {
+            QuestObserver.instance.GetQuest().questGoals[0].isDone = true;
+            QuestUIManager.instance.SetQuestTexts(QuestObserver.instance.GetQuest());
+        }
+
     }
 }

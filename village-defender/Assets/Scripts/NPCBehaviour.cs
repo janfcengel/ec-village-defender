@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCBehaviour : MonoBehaviour
 {
-    public DialogueTrigger activeDialogue;
+    //public DialogueTrigger activeDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +17,9 @@ public class NPCBehaviour : MonoBehaviour
         
     }
 
-    public void StartDialogueTrigger()
+    public virtual void StartDialogueTrigger()
     {
-        activeDialogue.TriggerDialogue();
+       // activeDialogue.TriggerDialogue();
     }
 
     public virtual void ActivateActionButton()

@@ -54,6 +54,12 @@ public class QuestUIManager : MonoBehaviour
                 goals += "[ ] " + goal.taskDescription + "\n";
             }   
         }
+
+        if(quest.isQuestComplete())
+        {
+            goals += "QUEST COMPLETE";
+        }
+
         return goals;
     }
 }
