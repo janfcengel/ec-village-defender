@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
 
@@ -65,7 +66,8 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            animator.SetBool("isGathering", true);
+            //animator.SetBool("isGathering", true);
+            animator.SetTrigger("OnPunch");
         }
 
         if(getHealthBar().GetCurrentHealth() == 0)
@@ -110,4 +112,8 @@ public class PlayerController : MonoBehaviour
         return currentQuest; 
     }
 
+    public Animator GetAnimator()
+    {
+        return animator;
+    }
 }

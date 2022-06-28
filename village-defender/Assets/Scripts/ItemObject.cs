@@ -16,6 +16,8 @@ public class ItemObject : MonoBehaviour
             QuestObserver.instance.GetQuest().questGoals[1].isDone = true;
             QuestUIManager.instance.SetQuestTexts(QuestObserver.instance.GetQuest());
         }
+
+        Player.GetComponent<PlayerController>().GetAnimator().SetTrigger("OnGathering"); 
         Destroy(gameObject);
     }
 
