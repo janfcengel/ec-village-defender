@@ -10,6 +10,8 @@ public class InventoryUIManager : MonoBehaviour
     public Text inventoryItems;
     public GameObject InventoryBox;
 
+    UIBoxBehaviour uIBoxBehaviour; 
+
     public static InventoryUIManager instance;
     public InventorySystem inv; 
 
@@ -22,6 +24,7 @@ public class InventoryUIManager : MonoBehaviour
     {
         inventoryTitle.text = "";
         inventoryItems.text = "No items yet";
+        uIBoxBehaviour = InventoryBox.GetComponent<UIBoxBehaviour>();
     }
 
     private void Update()
@@ -29,11 +32,12 @@ public class InventoryUIManager : MonoBehaviour
         SetItemTexts();
     }
 
-    public void ToggleVisible(bool isVisible)
+    public void ToggleVisible()
     {
-        inventoryTitle.gameObject.SetActive(isVisible);
-        inventoryItems.gameObject.SetActive(isVisible);
-        InventoryBox.SetActive(isVisible);
+        //inventoryTitle.gameObject.SetActive(isVisible);
+        //inventoryItems.gameObject.SetActive(isVisible);
+        //InventoryBox.SetActive(isVisible);
+        uIBoxBehaviour.Interact();
     }
 
     public void SetItemTexts()

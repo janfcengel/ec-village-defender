@@ -11,6 +11,8 @@ public class QuestUIManager : MonoBehaviour
     public Text questGoals;
     public GameObject QuestBox;
 
+    public UIBoxBehaviour uIBoxBehaviour;
+
     public static QuestUIManager instance;
 
     private void Awake()
@@ -22,15 +24,17 @@ public class QuestUIManager : MonoBehaviour
     {
         questTitle.text = "";
         questDescription.text = "No active Quests";
-        questGoals.text = ""; 
+        questGoals.text = "";
+        uIBoxBehaviour = QuestBox.GetComponent<UIBoxBehaviour>();
     }
 
-    public void ToggleVisible(bool isVisible)
+    public void ToggleVisible()
     {
-        questTitle.gameObject.SetActive(isVisible);
-        questDescription.gameObject.SetActive(isVisible);
-        questGoals.gameObject.SetActive(isVisible);
-        QuestBox.SetActive(isVisible);
+        //questTitle.gameObject.SetActive(isVisible);
+        //questDescription.gameObject.SetActive(isVisible);
+        //questGoals.gameObject.SetActive(isVisible);
+        //QuestBox.SetActive(isVisible);
+        uIBoxBehaviour.Interact();
     }
 
     public void SetQuestTexts(Quest quest)

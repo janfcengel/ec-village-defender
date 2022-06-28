@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
         healthBar.SetSize(.5f);
     }
 
-    private bool invUIVisible;
-    private bool questUIVisible;
+    //private bool invUIVisible;
+    //private bool questUIVisible;
     // Update is called once per frame
     void Update()
     {
@@ -31,13 +31,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            InventoryUIManager.instance.ToggleVisible(!invUIVisible);
-            invUIVisible = !invUIVisible;
+            InventoryUIManager.instance.ToggleVisible();
+            //invUIVisible = !invUIVisible;
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            QuestUIManager.instance.ToggleVisible(!questUIVisible);
-            questUIVisible = !questUIVisible;
+            QuestUIManager.instance.ToggleVisible();
+            //questUIVisible = !questUIVisible;
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
