@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
 
     public float rotationFactor = 4f;
+
+    public ParticleSystem footstepPS; 
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +34,13 @@ public class PlayerController : MonoBehaviour
 
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
-
+        
         moveDirection = new Vector3(xDirection, 0f, zDirection);
 
         if(moveDirection != Vector3.zero)
         {
             animator.SetBool("isMoving", true);
+            triggerFootsteps();
         }
         else
         {
@@ -115,5 +118,12 @@ public class PlayerController : MonoBehaviour
     public Animator GetAnimator()
     {
         return animator;
+    }
+
+    public void triggerFootsteps()
+    {
+        footstepPS.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
+
+        footstepPS.Play(); 
     }
 }
