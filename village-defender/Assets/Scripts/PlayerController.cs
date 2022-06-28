@@ -10,22 +10,38 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     HealthBarSystem healthBar;
 
-    public Quest currentQuest; 
+    public Quest currentQuest;
+
+    public Animator animator;
+    Vector3 moveDirection;
+
+    public float rotationFactor = 4f;
     // Start is called before the first frame update
     void Start()
     {
         healthBar.SetSize(.5f);
     }
 
-    //private bool invUIVisible;
-    //private bool questUIVisible;
     // Update is called once per frame
     void Update()
     {
+        if (animator.GetBool("isDead"))
+        {
+            return;
+        }
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = new Vector3(xDirection, 0f, zDirection);
+        moveDirection = new Vector3(xDirection, 0f, zDirection);
+
+        if(moveDirection != Vector3.zero)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
 
         transform.position += moveDirection * speed;
 
@@ -47,7 +63,35 @@ public class PlayerController : MonoBehaviour
         {
             healthBar.ReduceHealth(10);
         }
+        else if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            animator.SetBool("isGathering", true);
+        }
 
+        if(getHealthBar().GetCurrentHealth() == 0)
+        {
+            
+            animator.SetBool("isDead", true);
+            //this.enabled = false; 
+        }
+        handleRotation();
+    }
+
+    void handleRotation()
+    {
+        Vector3 posLookAt;
+
+        posLookAt.x = moveDirection.x;
+        posLookAt.y = 0f;
+        posLookAt.z = moveDirection.z;
+
+        Quaternion currentRotation = transform.rotation;
+
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(posLookAt);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactor * Time.deltaTime);
+        }
     }
 
     public HealthBarSystem getHealthBar()

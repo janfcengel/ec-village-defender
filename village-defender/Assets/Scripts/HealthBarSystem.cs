@@ -20,6 +20,7 @@ public class HealthBarSystem : MonoBehaviour
     [SerializeField]
     int maxHealth;
     private int currentHealth;
+    bool muteX;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,8 +102,11 @@ public class HealthBarSystem : MonoBehaviour
     {
         return maxHealth; 
     }
-
-    bool muteX; 
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+    
     IEnumerator Pulse(float time)
     {
         muteX = true;
