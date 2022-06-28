@@ -45,6 +45,11 @@ public class HealthBarSystem : MonoBehaviour
                 StartCoroutine("Pulse", 1f);
             }
         }
+
+        if (currentHealth == 0)
+        {
+            GameOverBehaviour.instance.OnGameOver();
+        }
        
         //Pulse();
     }
