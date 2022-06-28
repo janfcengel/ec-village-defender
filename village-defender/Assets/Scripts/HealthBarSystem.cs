@@ -2,10 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBarSystem : MonoBehaviour
 {
     private Transform bar;
+    [SerializeField]
+    GameObject barSprite;
+
+    //[SerializeField] [Range(0f, 1f)] float lerpTime;
+
+    Color color1 = new Color(164, 0, 0);
+    Color color2 = new Color(245, 88, 88);
+
+    Image image; 
 
     [SerializeField]
     int maxHealth;
@@ -19,8 +29,25 @@ public class HealthBarSystem : MonoBehaviour
         {
             maxHealth = 1; // Geteilt durch 0 vermeiden 
         }
+        image = barSprite.GetComponent<Image>();
     }
 
+    private void Update()
+    {
+        if(!muteX)
+        {
+            if(currentHealth < 30)
+            {
+                StartCoroutine("Pulse", 0.5f);
+            }
+            else
+            {
+                StartCoroutine("Pulse", 1f);
+            }
+        }
+       
+        //Pulse();
+    }
     // Update is called once per frame
     void LateUpdate()
     {
@@ -68,5 +95,26 @@ public class HealthBarSystem : MonoBehaviour
     public int GetMaxHealth()
     {
         return maxHealth; 
+    }
+
+    bool muteX; 
+    IEnumerator Pulse(float time)
+    {
+        muteX = true;
+        //new Color(212, 63, 63, 1), 1f
+        if (image.color == color2)
+        {
+            image.color = color1;
+        }
+        else
+        {
+            image.color = color2; 
+        }
+        //Debug.Log("Color: r" + image.color.r + " g" + image.color.g + " b" + image.color.b);
+       
+        //Debugs the right color but puts it anyways on (248,248,248)...
+        
+        yield return new WaitForSeconds(time);
+        muteX = false; 
     }
 }
