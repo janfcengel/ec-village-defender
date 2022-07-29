@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
         float zDirection = Input.GetAxis("Vertical");
         
         moveDirection = new Vector3(xDirection, 0f, zDirection);
+        if(moveDirection.magnitude > 1)
+        {
+            moveDirection = moveDirection.normalized;
+        }
 
         if(moveDirection != Vector3.zero)
         {
