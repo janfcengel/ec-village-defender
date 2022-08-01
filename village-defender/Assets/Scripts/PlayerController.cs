@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     Vector3 moveDirection;
-
+    public Rigidbody rigidbody;
     public float rotationFactor = 4f;
 
     public ParticleSystem footstepPS; 
@@ -32,11 +32,33 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        /*float moveX = 0f;
+        float moveY = 0f; 
+
+        if(Input.GetKey(KeyCode.W))
+        {
+            moveY = +1f;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveX = -1f;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            moveY = -1f;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveX = +1f;
+        }*/
+
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
-        
+
         moveDirection = new Vector3(xDirection, 0f, zDirection);
-        if(moveDirection.magnitude > 1)
+        //moveDirection = new Vector3(moveX, 0f, moveY);
+
+        if (moveDirection.magnitude > 1)
         {
             moveDirection = moveDirection.normalized;
         }
@@ -51,7 +73,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        transform.position += moveDirection * speed;
+        //transform.position += moveDirection * speed;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -84,6 +106,15 @@ public class PlayerController : MonoBehaviour
             //this.enabled = false; 
         }
         handleRotation();
+    }
+
+    private void FixedUpdate()
+    {
+        //rigidbody.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
+        Debug.Log(rigidbody.position);
+        rigidbody.drag = 0;
+        transform.position += moveDirection * speed;
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     void handleRotation()
