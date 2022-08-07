@@ -602,6 +602,7 @@ MonoBehaviour:
   UIDisableList:
   - {fileID: 464968440}
   - {fileID: 841344365}
+  - {fileID: 2067015489}
 --- !u!1 &199214980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1100,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1102, y: 519}
+  m_SizeDelta: {x: 1200, y: 567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &346281137
 MonoBehaviour:
@@ -60963,7 +60964,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1102, y: 519}
+  m_SizeDelta: {x: 1200, y: 567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632781555
 MonoBehaviour:
@@ -62240,7 +62241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2067015490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -62293,9 +62294,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Heal [H]
-
-    Take Damage [T]'
+  m_Text: Take Damage [T]
 --- !u!222 &2067015492
 CanvasRenderer:
   m_ObjectHideFlags: 0

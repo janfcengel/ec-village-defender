@@ -159,7 +159,7 @@ public class GridBuildingSystem3D : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha5)) { placedObjectTypeSO = placedObjectTypeSOList[4]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { placedObjectTypeSO = placedObjectTypeSOList[5]; RefreshSelectedObjectType(); }
         */
-        if (Input.GetKeyDown(KeyCode.Alpha0)) { DeselectObjectType(); }
+        if (Input.GetKeyDown(KeyCode.Escape)) { DeselectObjectType(); }
 
 
         if (Input.GetMouseButtonDown(1)) {

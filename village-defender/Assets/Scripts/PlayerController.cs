@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             healthBar.AddHealth(10);
         }
-        else if (Input.GetKeyDown(KeyCode.T) && _deubgMode)
+        else if (Input.GetKeyDown(KeyCode.T))
         {
             healthBar.ReduceHealth(10);
         }
