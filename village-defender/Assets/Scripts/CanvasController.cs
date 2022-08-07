@@ -12,8 +12,15 @@ public class CanvasController : MonoBehaviour
     public GameObject BuildingInfoText;
     public GameObject buildingGrid;
 
+    public static CanvasController Instance;
+
+
     #region Unity Methods
-    
+
+    private void Awake()
+    {
+        Instance = this; 
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -62,4 +69,11 @@ public class CanvasController : MonoBehaviour
         }
     }
     #endregion
+
+    public static bool GetBuildingMode() => Instance.Instance_GetBuildingMode();
+
+    private bool Instance_GetBuildingMode()
+    {
+        return buildingMode; 
+    }
 }

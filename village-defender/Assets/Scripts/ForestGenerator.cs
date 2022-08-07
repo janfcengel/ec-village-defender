@@ -37,8 +37,8 @@ public class ForestGenerator : MonoBehaviour
                 temp = Instantiate(currentTree,
                     new Vector3(point.x + startingPointX - (regionSize.x / 2), 0, point.y + startingPointY- (regionSize.y / 2)),
                     Quaternion.identity);
-                //Quaternion.EulerAngles(0, Random.Range(0, 360), 0));
-                //Gizmos.DrawSphere(new Vector3(point.x + startingPointX, 0, point.y + startingPointY), displayRadius);
+                temp.GetComponent<Transform>().SetParent(this.GetComponent<Transform>());
+                
             }
         }
     }

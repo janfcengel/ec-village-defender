@@ -126,6 +126,7 @@ namespace CodeMonkey.Utils {
         public static void CreateWorldTextPopup(Transform parent, string text, Vector3 localPosition, int fontSize, Color color, Vector3 finalPopupPosition, float popupTime) {
             TextMesh textMesh = CreateWorldText(parent, text, localPosition, fontSize, color, TextAnchor.LowerLeft, TextAlignment.Left, sortingOrderDefault);
             Transform transform = textMesh.transform;
+            transform.rotation = Quaternion.Euler(90,0,0);
             Vector3 moveAmount = (finalPopupPosition - localPosition) / popupTime;
             FunctionUpdater.Create(delegate () {
                 transform.position += moveAmount * Time.unscaledDeltaTime;

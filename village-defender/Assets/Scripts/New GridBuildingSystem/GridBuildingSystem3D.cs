@@ -19,7 +19,8 @@ public class GridBuildingSystem3D : MonoBehaviour {
 
     [SerializeField]
     private Camera buildingCamera;
-
+    [SerializeField]
+    private Transform VillageObjects;
     private void Awake() {
         Instance = this;
         //Test
@@ -29,7 +30,7 @@ public class GridBuildingSystem3D : MonoBehaviour {
         Vector3 originOffset = new Vector3(-36, 0, -36);
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, originOffset, (GridXZ<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
-        placedObjectTypeSO = placedObjectTypeSOList[0];
+        
     }
 
     public class GridObject {
@@ -68,6 +69,12 @@ public class GridBuildingSystem3D : MonoBehaviour {
             return placedObject == null;
         }
 
+    }
+
+    private void Start()
+    {
+        PlaceStartBuildings();
+        placedObjectTypeSO = placedObjectTypeSOList[0];
     }
 
     private void Update() {
@@ -239,5 +246,82 @@ public class GridBuildingSystem3D : MonoBehaviour {
             }
         }
         return canBuild;
+    }
+
+    private void PlaceStartBuildings()
+    {
+        //0 = H01, 1 = H02, 2 = Wall, 3 = Gate
+        //placedObjectTypeSO = placedObjectTypeSOList[0];
+
+        BuildPlacableObject(37, 16, placedObjectTypeSOList[0], PlacedObjectTypeSO.Dir.Down);
+        BuildPlacableObject(20, 17, placedObjectTypeSOList[1], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(20, 45, placedObjectTypeSOList[1], PlacedObjectTypeSO.Dir.Down);
+        BuildPlacableObject(48, 40, placedObjectTypeSOList[0], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(39, 51, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(48, 53, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(57, 43, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(57, 33, placedObjectTypeSOList[3], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(56, 23, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(46, 24, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(46, 14, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Down);
+        BuildPlacableObject(36, 14, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Left);
+        BuildPlacableObject(27, 12, placedObjectTypeSOList[3], PlacedObjectTypeSO.Dir.Left);
+        BuildPlacableObject(18, 14, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Left);
+        BuildPlacableObject(16, 14, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(14, 22, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(12, 30, placedObjectTypeSOList[3], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(14, 38, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(16, 47, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+        BuildPlacableObject(18, 57, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(27, 59, placedObjectTypeSOList[3], PlacedObjectTypeSO.Dir.Right);
+        BuildPlacableObject(37, 50, placedObjectTypeSOList[2], PlacedObjectTypeSO.Dir.Up);
+    }
+
+    private void BuildPlacableObject(int x, int z, PlacedObjectTypeSO objectTypeSO, PlacedObjectTypeSO.Dir dir)
+    {
+        Vector2Int placedObjectOrigin = new Vector2Int(x, z);
+        placedObjectOrigin = grid.ValidateGridPosition(placedObjectOrigin);
+
+        // Test Can Build
+        List<Vector2Int> gridPositionList = objectTypeSO.GetGridPositionList(placedObjectOrigin, dir);
+        bool canBuild = true;
+        foreach (Vector2Int gridPosition in gridPositionList)
+        {
+            GridObject gridObject = grid.GetGridObject(gridPosition.x, gridPosition.y);
+            if (gridObject == default)
+            {
+                canBuild = false;
+                break;
+            }
+            if (!gridObject.CanBuild())
+            {
+                canBuild = false;
+                break;
+            }
+        }
+
+        if (canBuild)
+        {
+            Vector2Int rotationOffset = objectTypeSO.GetRotationOffset(dir);
+            Vector3 placedObjectWorldPosition = grid.GetWorldPosition(placedObjectOrigin.x, placedObjectOrigin.y) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
+
+            PlacedObject_Done placedObject = PlacedObject_Done.Create(placedObjectWorldPosition, placedObjectOrigin, dir, objectTypeSO, VillageObjects);
+            
+            foreach (Vector2Int gridPosition in gridPositionList)
+            {
+                grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+            }
+
+            OnObjectPlaced?.Invoke(this, EventArgs.Empty);
+
+            //DeselectObjectType();
+        }
+        else
+        {
+            Debug.Log("Placing Building Failed, cant build");
+            // Cannot build here
+            //Todo: Adjust camera 
+            //UtilsClass.CreateWorldTextPopup("Cannot Build Here!", mousePosition);
+        }
     }
 }

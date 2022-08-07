@@ -31,32 +31,15 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
-        /*float moveX = 0f;
-        float moveY = 0f; 
-
-        if(Input.GetKey(KeyCode.W))
+        if(CanvasController.GetBuildingMode())
         {
-            moveY = +1f;
+            return; 
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveX = -1f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveY = -1f;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveX = +1f;
-        }*/
 
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
 
         moveDirection = new Vector3(xDirection, 0f, zDirection);
-        //moveDirection = new Vector3(moveX, 0f, moveY);
 
         if (moveDirection.magnitude > 1)
         {
