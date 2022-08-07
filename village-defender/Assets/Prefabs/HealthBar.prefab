@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa8410e99e599341be5b1fab721571f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barSprite: {fileID: 0}
+  maxHealth: 0
 --- !u!222 &8034587367130251159
 CanvasRenderer:
   m_ObjectHideFlags: 0

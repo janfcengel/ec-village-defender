@@ -68,6 +68,7 @@ public class HealthBarSystem : MonoBehaviour
 
     public void SetSize(float percentSize)
     {
+        if(bar == null) { return; }
         bar.localScale = new Vector3(percentSize, 1f);
     }
 

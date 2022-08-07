@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
 
     private float speed = 0.1f;
-    //public GameObject inventory;
     [SerializeField]
     HealthBarSystem healthBar;
 
@@ -17,7 +16,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rigidbody;
     public float rotationFactor = 4f;
 
-    public ParticleSystem footstepPS; 
+    public ParticleSystem footstepPS;
+
+    private bool _deubgMode = false; 
     // Start is called before the first frame update
     void Start()
     {
@@ -58,29 +59,24 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        //transform.position += moveDirection * speed;
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             InventoryUIManager.instance.ToggleVisible();
-            //invUIVisible = !invUIVisible;
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             QuestUIManager.instance.ToggleVisible();
-            //questUIVisible = !questUIVisible;
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.H) && _deubgMode)
         {
             healthBar.AddHealth(10);
         }
-        else if (Input.GetKeyDown(KeyCode.T))
+        else if (Input.GetKeyDown(KeyCode.T) && _deubgMode)
         {
             healthBar.ReduceHealth(10);
         }
         else if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //animator.SetBool("isGathering", true);
             animator.SetTrigger("OnPunch");
         }
 
@@ -88,14 +84,12 @@ public class PlayerController : MonoBehaviour
         {
             
             animator.SetBool("isDead", true);
-            //this.enabled = false; 
         }
         handleRotation();
     }
 
     private void FixedUpdate()
     {
-        //rigidbody.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
         Debug.Log(rigidbody.position);
         rigidbody.drag = 0;
         transform.position += moveDirection * speed;
