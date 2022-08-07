@@ -79,6 +79,9 @@ public class GridBuildingSystem3D : MonoBehaviour {
     }
 
     private void Update() {
+
+        if(!CanvasController.GetBuildingMode()) { return; }
+
         if(Input.GetMouseButtonDown(0) && placedObjectTypeSO == null)
         {
             Vector3 mousePosition = Mouse3D.GetMouseWorldPosition(buildingCamera);
