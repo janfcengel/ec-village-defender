@@ -35,7 +35,7 @@ public class CanvasController : MonoBehaviour
             button.SetActive(buildingMode);
         }
         //Bugs: MousePos wird nicht richtig in CellPos übersetzt in GridBuildingSystem 
-        //SetBuildingCamActive(buildingMode);
+        SetBuildingCamActive(buildingMode);
         if (buildingMode)
         {
             BuildingModeButton.GetComponentInChildren<Text>().text = "Player Mode";
@@ -44,7 +44,7 @@ public class CanvasController : MonoBehaviour
         {
             BuildingModeButton.GetComponentInChildren<Text>().text = "Build Mode";
         }
-        //buildingGrid.SetActive(buildingMode);
+        buildingGrid.SetActive(buildingMode);
         BuildingInfoText.SetActive(buildingMode);
     }
     void SetBuildingCamActive(bool enabled)
