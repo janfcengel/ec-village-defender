@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26518019a10e4a142aded972cada634a, type: 3}
   m_Name: House_02
   m_EditorClassIdentifier: 
-  nameString: Big House
+  nameString: House02
   prefab: {fileID: 8375263236341129602, guid: ddacd055ce6f41e46a0403246afb1635, type: 3}
   visual: {fileID: 8375263236341129602, guid: b37b3fd7f2bce5a40bad5fd70a6741d5, type: 3}
   visual_red: {fileID: 8375263236341129602, guid: 75e85e7526ff0da4e864caa3e4783d1f, type: 3}

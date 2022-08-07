@@ -10,6 +10,8 @@ public class PlacedObject_Done : MonoBehaviour {
         PlacedObject_Done placedObject = placedObjectTransform.GetComponent<PlacedObject_Done>();
         placedObject.Setup(placedObjectTypeSO, origin, dir);
 
+        CanvasController.Instance.AddBuildingCount(placedObjectTypeSO, 1);
+
         return placedObject;
     }
 
@@ -20,6 +22,8 @@ public class PlacedObject_Done : MonoBehaviour {
 
         PlacedObject_Done placedObject = placedObjectTransform.GetComponent<PlacedObject_Done>();
         placedObject.Setup(placedObjectTypeSO, origin, dir);
+
+        CanvasController.Instance.AddBuildingCount(placedObjectTypeSO, 1);
 
         return placedObject;
     }
@@ -41,6 +45,7 @@ public class PlacedObject_Done : MonoBehaviour {
 
     public void DestroySelf() {
         Destroy(gameObject);
+        CanvasController.Instance.AddBuildingCount(placedObjectTypeSO, -1);
     }
 
     public override string ToString() {

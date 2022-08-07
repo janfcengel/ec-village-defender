@@ -74,7 +74,8 @@ public class GridBuildingSystem3D : MonoBehaviour {
     private void Start()
     {
         PlaceStartBuildings();
-        placedObjectTypeSO = placedObjectTypeSOList[0];
+        //placedObjectTypeSO = placedObjectTypeSOList[0];
+        DeselectObjectType();
     }
 
     private void Update() {
@@ -151,13 +152,13 @@ public class GridBuildingSystem3D : MonoBehaviour {
             dir = PlacedObjectTypeSO.GetNextDir(dir);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { placedObjectTypeSO = placedObjectTypeSOList[0]; RefreshSelectedObjectType(); }
+        /*if (Input.GetKeyDown(KeyCode.Alpha1)) { placedObjectTypeSO = placedObjectTypeSOList[0]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { placedObjectTypeSO = placedObjectTypeSOList[1]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { placedObjectTypeSO = placedObjectTypeSOList[2]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha4)) { placedObjectTypeSO = placedObjectTypeSOList[3]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha5)) { placedObjectTypeSO = placedObjectTypeSOList[4]; RefreshSelectedObjectType(); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { placedObjectTypeSO = placedObjectTypeSOList[5]; RefreshSelectedObjectType(); }
-
+        */
         if (Input.GetKeyDown(KeyCode.Alpha0)) { DeselectObjectType(); }
 
 
@@ -196,13 +197,11 @@ public class GridBuildingSystem3D : MonoBehaviour {
 
     public Vector3 GetMouseWorldSnappedPosition() {
         Vector3 mousePosition = Mouse3D.GetMouseWorldPosition(buildingCamera);
-        //Vector3 mousePosition = GetMyMouseWorldPosition(Camera.main, Input.mousePosition);
         grid.GetXZ(mousePosition, out int x, out int z);
 
         if (placedObjectTypeSO != null) {
             Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
             Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.GetCellSize();
-           // Debug.Log("Snapped Mouse pos: " + placedObjectWorldPosition.x + ", "+ placedObjectWorldPosition.y + ", " + placedObjectWorldPosition.z);
             return placedObjectWorldPosition;
         } else {
             return mousePosition;
@@ -224,6 +223,10 @@ public class GridBuildingSystem3D : MonoBehaviour {
 
     public bool CanBuildBuilding()
     {
+        if(placedObjectTypeSO == null)
+        {
+            return false;
+        }
         Vector3 mousePosition = Mouse3D.GetMouseWorldPosition(buildingCamera);
         grid.GetXZ(mousePosition, out int x, out int z);
 
@@ -313,15 +316,35 @@ public class GridBuildingSystem3D : MonoBehaviour {
             }
 
             OnObjectPlaced?.Invoke(this, EventArgs.Empty);
-
-            //DeselectObjectType();
         }
         else
         {
             Debug.Log("Placing Building Failed, cant build");
-            // Cannot build here
-            //Todo: Adjust camera 
-            //UtilsClass.CreateWorldTextPopup("Cannot Build Here!", mousePosition);
         }
+    }
+
+    public void SelectPlaceObjectTypeHouse01()
+    {
+        if (CanvasController.GetCurrentHouse01()) { Debug.Log("Too Many Buildings of that Type");  return; }
+        placedObjectTypeSO = placedObjectTypeSOList[0];
+        RefreshSelectedObjectType();
+    }
+    public void SelectPlaceObjectTypeHouse02()
+    {
+        if (CanvasController.GetCurrentHouse02()) { Debug.Log("Too Many Buildings of that Type"); return; }
+        placedObjectTypeSO = placedObjectTypeSOList[1];
+        RefreshSelectedObjectType();
+    }
+    public void SelectPlaceObjectTypeWall()
+    {
+        if (CanvasController.GetCurrentWall()) { Debug.Log("Too Many Buildings of that Type"); return; }
+        placedObjectTypeSO = placedObjectTypeSOList[2];
+        RefreshSelectedObjectType();
+    }
+    public void SelectPlaceObjectTypeGate()
+    {
+        if (CanvasController.GetCurrentGate()) { Debug.Log("Too Many Buildings of that Type"); return; }
+        placedObjectTypeSO = placedObjectTypeSOList[3];
+        RefreshSelectedObjectType();
     }
 }

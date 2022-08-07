@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
         }
         if(CanvasController.GetBuildingMode())
         {
+            moveDirection = Vector3.zero;
+            animator.SetBool("isMoving", false);
             return; 
         }
 
