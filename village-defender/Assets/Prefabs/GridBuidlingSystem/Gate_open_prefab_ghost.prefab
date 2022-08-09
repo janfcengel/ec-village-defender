@@ -49,7 +49,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7382432868079347826}
-  - component: {fileID: 3102625947276145078}
   m_Layer: 0
   m_Name: Gate_open_prefab_ghost
   m_TagString: Untagged
@@ -73,22 +72,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3102625947276145078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382432868079347827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31e9094019360cc45abb80ac7a0d04ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  area:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 2, y: 10, z: 1}
-  rotated: 0
 --- !u!1 &8290440717446672202
 GameObject:
   m_ObjectHideFlags: 0
