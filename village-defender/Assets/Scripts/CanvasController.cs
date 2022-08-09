@@ -183,4 +183,13 @@ public class CanvasController : MonoBehaviour
             Debug.Log("CountSuccess False");
         }
     }
+
+    public bool IsMaxCountForPlacedObjectTypeSO(PlacedObjectTypeSO placedObjectTypeSO)
+    {
+        if (placedObjectTypeSO.nameString == "House01") { return GetCurrentHouse01(); }
+        else if (placedObjectTypeSO.nameString == "House02") { return GetCurrentHouse02(); }
+        else if (placedObjectTypeSO.nameString == "Wall") { return GetCurrentWall(); }
+        else if (placedObjectTypeSO.nameString == "Gate") { return GetCurrentGate(); }
+        return true; 
+    }
 }
